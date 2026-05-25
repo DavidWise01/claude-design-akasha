@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin:0; padding:0; background: var(--bg-page); }
+  .card {
+    position: relative;
+    padding: 36px 28px;
+    background:
+      radial-gradient(120% 80% at 0% 0%, rgba(107,46,156,0.10), transparent 55%),
+      radial-gradient(100% 80% at 100% 100%, rgba(176,112,224,0.10), transparent 55%),
+      linear-gradient(180deg, #FAF6E9, #F5F1E6 60%, #EDE7D6);
+    overflow: hidden;
+  }
+  @keyframes hue { 0%{filter:hue-rotate(0)} 100%{filter:hue-rotate(28deg)} }
+  .holo {
+    font-family: "Death From Above", var(--font-display);
+    font-weight: 900; font-size: 96px;
+    line-height: 0.95; letter-spacing: -0.04em;
+    text-transform: uppercase;
+    color: transparent;
+    background:
+      linear-gradient(115deg, #2E1244 0%, #4A2168 18%, #6B2E9C 36%, #B070E0 52%, #6B2E9C 70%, #4A2168 86%, #2E1244 100%);
+    background-size: 220% 220%;
+    -webkit-background-clip: text; background-clip: text;
+    animation: hue 6s ease-in-out infinite alternate;
+    text-wrap: balance;
+  }
+  .meta { display:flex; gap:16px; margin-top:14px; font-family:var(--font-mono); font-size:11px; letter-spacing:.28em; text-transform:lowercase; color:var(--ink-3); }
+  .meta b { color: var(--purple); font-weight: 500; }
+</style>
+</head>
+<body><div class="card">
+  <div class="holo">Both work.<br>Both&nbsp;fair.</div>
+  <div class="meta">
+    <span>death from above</span><span>900</span><span>-0.04em</span><span><b>purple foil</b></span>
+  </div>
+</div></body></html>

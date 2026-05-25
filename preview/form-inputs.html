@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin:0; padding:0; background: var(--bg-page); }
+  .card { padding: 24px 28px; min-height: 100%; box-sizing: border-box; }
+  
+</style>
+</head>
+<body><div class="card">
+  <div style="display:flex; flex-direction:column; gap:14px; max-width:520px;">
+    <div style="display:flex; align-items:center; gap:8px; background:var(--cream); border:1px solid var(--ink); padding:11px 13px; font-family:var(--font-mono); font-size:13px;">
+      <span style="font-family:var(--font-mono); font-size:10px; letter-spacing:.32em; text-transform:lowercase; color:var(--smoke);">q ⟶</span>
+      <input value="consent retrieval" style="all:unset; flex:1; font-family:var(--font-mono); color:var(--ink);" />
+      <span style="font-family:var(--font-mono); font-size:11px; color:var(--smoke); letter-spacing:.04em;">⌘K</span>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <div style="display:flex; align-items:center; gap:8px; background:var(--cream); border:1px solid var(--ink); padding:11px 13px; flex:1;">
+        <span style="font-family:var(--font-mono); font-size:10px; letter-spacing:.32em; text-transform:lowercase; color:var(--smoke);">date</span>
+        <input value="2026-03-19" style="all:unset; flex:1; font-family:var(--font-mono); color:var(--ink);" />
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; background:var(--cream); border:1px solid var(--ink); padding:11px 13px; flex:1;">
+        <span style="font-family:var(--font-mono); font-size:10px; letter-spacing:.32em; text-transform:lowercase; color:var(--smoke);">phase</span>
+        <input value="04" style="all:unset; flex:1; font-family:var(--font-mono); color:var(--ink);" />
+      </div>
+    </div>
+    <div style="display:flex; gap:14px; align-items:center;">
+      <label style="display:inline-flex; align-items:center; gap:8px; font-family:var(--font-sans); font-size:14px;">
+        <span style="width:18px; height:18px; border:1px solid var(--ink); background:var(--purple); display:inline-block; position:relative;">
+          <span style="position:absolute; inset:0; color:var(--cream); font-family:var(--font-mono); font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center;">✓</span>
+        </span>
+        Signed
+      </label>
+      <label style="display:inline-flex; align-items:center; gap:8px; font-family:var(--font-sans); font-size:14px;">
+        <span style="width:18px; height:18px; border:1px solid var(--ink); background:var(--cream);"></span>
+        Embargoed
+      </label>
+      <label style="display:inline-flex; align-items:center; gap:8px; font-family:var(--font-sans); font-size:14px;">
+        <span style="width:38px; height:22px; border:1px solid var(--ink); background:var(--moss); display:inline-block; position:relative;">
+          <span style="position:absolute; right:2px; top:0; bottom:0; width:14px; background:var(--cream);"></span>
+        </span>
+        Published
+      </label>
+    </div>
+  </div>
+</div></body>
+</html>

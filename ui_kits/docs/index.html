@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>Akasha — Handbook</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+  body { margin:0; min-width: 1280px; }
+  #root { min-width: 1280px; }
+  .docs-topbar {
+    display:flex; align-items:center; gap:24px;
+    padding: 14px 28px; border-bottom: 1px solid var(--ink);
+    background: var(--bg-page);
+    position: sticky; top:0; z-index: 10;
+  }
+  .docs-topbar .lockup { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .docs-topbar .mark { display:block; width: 30px; height: 30px; }
+  .docs-topbar .wm { font-family: var(--font-display); font-weight:900; font-size:17px; line-height:1; letter-spacing:-0.02em; color: var(--ink); text-transform:uppercase; }
+  .docs-topbar .crumb { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.32em; color: var(--smoke); text-transform: lowercase; }
+  .docs-topbar .crumb.active { color: var(--ink); font-weight:500; }
+  .docs-shell { display: flex; min-height: calc(100vh - 51px); }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="DocsSidebar.jsx"></script>
+<script type="text/babel" src="Article.jsx"></script>
+<script type="text/babel" src="DocsTOC.jsx"></script>
+
+<script type="text/babel">
+  function App() {
+    const [active, setActive] = React.useState('§ 04 Compensation');
+    return (
+      <>
+        <header className="docs-topbar">
+          <a href="#" className="lockup">
+            <img src="../../assets/chevron-orb.svg" alt="" className="mark" />
+            <span className="wm">AKASHA</span>
+          </a>
+          <span className="crumb">handbook</span>
+          <span className="crumb" style={{color:'var(--smoke)'}}>/</span>
+          <span className="crumb">the purple book</span>
+          <span className="crumb" style={{color:'var(--smoke)'}}>/</span>
+          <span className="crumb active">{active}</span>
+          <span style={{flex:1}} />
+          <button className="btn btn--sm">Search ⌘K</button>
+          <button className="btn btn--sm btn--purple">Contribute →</button>
+        </header>
+        <div className="docs-shell">
+          <DocsSidebar active={active} onNav={setActive} />
+          <main style={{flex:1, display:'flex', minWidth:0}}>
+            <Article />
+            <DocsTOC />
+          </main>
+        </div>
+      </>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

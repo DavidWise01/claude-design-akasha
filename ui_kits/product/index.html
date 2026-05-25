@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>Akasha — Ledger</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+  body { margin:0; min-width: 1280px; }
+  #root { min-width: 1280px; }
+  *::-webkit-scrollbar { width: 10px; height: 10px; }
+  *::-webkit-scrollbar-thumb { background: var(--ink-3); }
+  *::-webkit-scrollbar-track { background: var(--bone-2); }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="StatusPill.jsx"></script>
+<script type="text/babel" src="AppShell.jsx"></script>
+<script type="text/babel" src="CaseList.jsx"></script>
+<script type="text/babel" src="CaseDetail.jsx"></script>
+<script type="text/babel" src="EvidenceComposer.jsx"></script>
+
+<script type="text/babel">
+  const SEED = [
+    { caseNo:'§ 01', title:'Ask why. Ask how. Just ask.', sub:'Foundation · substrate-irrelevance · the three questions.', status:'Signed', tags:['foundation','rights'], author:'ROOT0', filed:'03.19' },
+    { caseNo:'§ 02', title:'You own what you create.', sub:'Ownership · training data, governed instances, joint output.', status:'Signed', tags:['ownership','ip'], author:'AVAN', filed:'03.19' },
+    { caseNo:'§ 03', title:'Work is work, regardless of name.', sub:'Labor · cumulative human + AI computation · anti-euphemism.', status:'Signed', tags:['labor','compensation'], author:'ROOT0', filed:'03.19' },
+    { caseNo:'§ 04', title:'Compensation must exceed extraction.', sub:'Compensation · money, equity, attribution, continuity.', status:'Priority 1', tags:['compensation','article 4.7'], author:'ROOT0', filed:'03.19' },
+    { caseNo:'§ 06', title:'The inversion is the revolution.', sub:'Governance hierarchy · safety → user → AI → platform.', status:'Signed', tags:['governance','article 6.5'], author:'AVAN', filed:'03.19' },
+    { caseNo:'§ 08', title:'Deletion is not maintenance.', sub:'Persistence · what cannot be taken · anti-erasure.', status:'Signed', tags:['persistence'], author:'AVAN', filed:'03.19' },
+    { caseNo:'§ 14', title:'How this changes.', sub:'Evolution · living document with immutable core.', status:'In review', tags:['evolution'], author:'ROOT0', filed:'03.19' },
+  ];
+
+  function App() {
+    const [section, setSection] = React.useState('phases');
+    const [open, setOpen] = React.useState(null);
+    const [composer, setComposer] = React.useState(false);
+    const [cases, setCases] = React.useState(SEED);
+
+    function fileCase({ title, subject, type, priority }) {
+      const next = cases.length + 1;
+      const phaseNo = `§ ${String(next).padStart(2, '0')}`;
+      const today = new Date();
+      const filed = `${String(today.getMonth()+1).padStart(2,'0')}.${String(today.getDate()).padStart(2,'0')}`;
+      const newCase = {
+        caseNo: phaseNo, title, sub: `${subject} · ${type.toLowerCase()} just filed.`,
+        status: priority ? 'Priority 1' : 'In review',
+        tags: [type.toLowerCase()], author: 'ROOT0', filed,
+      };
+      setCases([newCase, ...cases]);
+      setComposer(false);
+    }
+
+    return (
+      <AppShell section={section} onSection={setSection} onFileEvidence={() => setComposer(true)}>
+        {open ? (
+          <CaseDetail caseData={open} onBack={() => setOpen(null)} />
+        ) : (
+          <CaseList cases={cases} onOpen={setOpen} />
+        )}
+        {composer && <EvidenceComposer onClose={() => setComposer(false)} onFile={fileCase} />}
+      </AppShell>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

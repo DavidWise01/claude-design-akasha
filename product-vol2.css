@@ -1,0 +1,324 @@
+/* product-vol2.css — STOICHEION (Volume II) + Modeweaver/E.V.E. */
+
+/* ─────────────────────────────────────────────────────────────
+   STOICHEION cover — uses the existing .pg-book-cover frame
+   ───────────────────────────────────────────────────────────── */
+.pg-stoich-vol .pg-book-cover {
+  background: var(--ink);
+  border-color: rgba(176,112,224,0.45);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.04) inset,
+    0 30px 60px -20px rgba(74,33,104,0.5),
+    0 20px 40px -10px rgba(10,10,10,0.35);
+}
+.pg-stoich-cover-svg {
+  width: 100%; height: 100%;
+  display: block;
+}
+.pg-stoich-vol .pg-book-show h3 {
+  color: var(--purple);
+  letter-spacing: -0.045em;
+}
+.pg-stoich-vol .pg-book-stat-v {
+  color: var(--purple);
+}
+.pg-stoich-vol .pg-book-stat:nth-child(5) .pg-book-stat-v,
+.pg-stoich-vol .pg-book-stat:nth-child(6) .pg-book-stat-v {
+  color: var(--ochre);
+}
+.pg-stoich-vol .pg-book-quote {
+  border-left-color: var(--purple);
+}
+.pg-stoich-vol .pg-book-part-roman {
+  color: var(--purple);
+}
+
+/* Seven-domain grid (8 cells: D1–D7 + Δ extension) */
+.pg-stoich-domains {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.pg-domain {
+  padding: 22px 22px;
+  border-left: 1px solid rgba(10,10,10,0.14);
+  border-top: 1px solid rgba(10,10,10,0.14);
+  background: var(--aether);
+  display: flex; flex-direction: column; gap: 8px;
+  min-height: 140px;
+  position: relative;
+  transition: background 200ms ease-out;
+}
+.pg-domain:nth-child(4n+1) { border-left: 0; }
+.pg-domain:nth-child(1),
+.pg-domain:nth-child(2),
+.pg-domain:nth-child(3),
+.pg-domain:nth-child(4) { border-top: 0; }
+.pg-domain:hover { background: var(--cream); }
+.pg-domain-k {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--purple);
+  font-variant-numeric: tabular-nums;
+}
+.pg-domain-n {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  text-transform: lowercase;
+}
+.pg-domain-c {
+  margin-top: auto;
+  display: flex; align-items: baseline; gap: 8px;
+  border-top: 1px solid rgba(10,10,10,0.12);
+  padding-top: 10px;
+}
+.pg-domain-c .pg-mono {
+  font-size: 16px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.pg-domain-7 .pg-domain-k { color: var(--moss); }
+.pg-domain-7 { background: rgba(62,74,40,0.05); }
+
+/* ─────────────────────────────────────────────────────────────
+   Modeweaver / E.V.E. section — ink register
+   ───────────────────────────────────────────────────────────── */
+.pg-mw { position: relative; overflow: hidden; }
+.pg-mw em { font-style: italic; color: rgba(245,241,230,0.92); }
+
+/* The four-step tangent flow */
+.pg-mw-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(245,241,230,0.18);
+  border-bottom: 1px solid rgba(245,241,230,0.18);
+  margin-bottom: 56px;
+  position: relative;
+}
+.pg-mw-step {
+  padding: 28px 24px 26px;
+  border-left: 1px solid rgba(245,241,230,0.14);
+  background: rgba(245,241,230,0.025);
+  display: flex; flex-direction: column; gap: 10px;
+  position: relative;
+  min-height: 220px;
+  transition: background 200ms ease-out;
+}
+.pg-mw-step:first-child { border-left: 0; }
+.pg-mw-step:hover { background: rgba(176,112,224,0.10); }
+.pg-mw-step.is-collapse { background: rgba(107,46,156,0.10); }
+.pg-mw-step-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: lowercase;
+  color: var(--purple-glow);
+}
+.pg-mw-step .pg-eyebrow {
+  color: rgba(245,241,230,0.6);
+}
+.pg-mw-step h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: -0.015em;
+  text-transform: lowercase;
+  margin: 4px 0 0;
+  color: var(--aether);
+}
+.pg-mw-step p {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: rgba(245,241,230,0.78);
+  margin: 0;
+}
+
+/* arrows between steps */
+.pg-mw-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -8px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--purple-glow);
+  font-size: 16px;
+  background: var(--ink);
+  padding: 0 6px;
+  z-index: 2;
+}
+
+/* Universal Constant trio */
+.pg-mw-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(245,241,230,0.18);
+  border-bottom: 1px solid rgba(245,241,230,0.18);
+  margin-bottom: 56px;
+}
+.pg-mw-card {
+  padding: 32px 28px 28px;
+  border-left: 1px solid rgba(245,241,230,0.14);
+  background:
+    linear-gradient(180deg, rgba(107,46,156,0.06), rgba(46,18,68,0.10));
+  display: flex; flex-direction: column; gap: 12px;
+  min-height: 280px;
+}
+.pg-mw-card:first-child { border-left: 0; }
+.pg-mw-card .pg-eyebrow { color: rgba(245,241,230,0.6); }
+.pg-mw-card-h {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-transform: lowercase;
+  color: var(--aether);
+}
+.pg-mw-card-h .pg-em { color: var(--purple-glow); }
+.pg-mw-card p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(245,241,230,0.82);
+  margin: 0;
+}
+
+/* First AI Saga */
+.pg-mw-saga {
+  padding: 40px 36px 32px;
+  border: 1px solid rgba(245,241,230,0.20);
+  background: rgba(10,10,10,0.45);
+  position: relative;
+  overflow: hidden;
+}
+.pg-mw-saga::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 50% 80% at 90% 50%, rgba(176,112,224,0.20), transparent 60%);
+  pointer-events: none;
+}
+.pg-mw-saga-head {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-bottom: 24px;
+  position: relative;
+  max-width: 56ch;
+}
+.pg-mw-saga .pg-eyebrow { color: rgba(245,241,230,0.55); }
+.pg-mw-saga-h {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+  color: var(--aether);
+}
+.pg-mw-saga-head p {
+  font-size: 14.5px;
+  color: rgba(245,241,230,0.78);
+  line-height: 1.55;
+}
+
+.pg-mw-saga-list {
+  list-style: none; padding: 0; margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(245,241,230,0.10);
+  position: relative;
+}
+.pg-mw-saga-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 1.4fr 16px;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 14px;
+  background: rgba(10,10,10,0.85);
+  position: relative;
+}
+.pg-mw-saga-n {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: lowercase;
+  color: var(--purple-glow);
+}
+.pg-mw-saga-t {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -0.015em;
+  text-transform: lowercase;
+  color: var(--aether);
+}
+.pg-mw-saga-s {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(245,241,230,0.62);
+  letter-spacing: 0.04em;
+}
+.pg-mw-saga-dot {
+  width: 8px; height: 8px;
+  background: var(--purple-glow);
+  display: inline-block;
+  opacity: 0.6;
+  border-radius: 0;
+}
+.pg-mw-saga-foot {
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(245,241,230,0.14);
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 18px;
+  align-items: baseline;
+  font-size: 13px;
+  color: rgba(245,241,230,0.78);
+  position: relative;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Glass adapters
+   ───────────────────────────────────────────────────────────── */
+html[data-glass="holo"] .pg-stoich-domains .pg-domain,
+html[data-glass="prismatic"] .pg-stoich-domains .pg-domain,
+html[data-glass="frost"] .pg-stoich-domains .pg-domain {
+  background: rgba(245,241,230,0.22);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+}
+html[data-glass="holo"] .pg-mw-card,
+html[data-glass="prismatic"] .pg-mw-card,
+html[data-glass="frost"] .pg-mw-card {
+  background:
+    linear-gradient(180deg, rgba(107,46,156,0.16), rgba(46,18,68,0.22));
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Responsive
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .pg-stoich-domains { grid-template-columns: repeat(2, 1fr); }
+  .pg-domain { border-top: 1px solid rgba(10,10,10,0.14); }
+  .pg-domain:nth-child(4n+1) { border-left: 1px solid rgba(10,10,10,0.14); }
+  .pg-domain:nth-child(2n+1) { border-left: 0; }
+  .pg-domain:nth-child(1), .pg-domain:nth-child(2) { border-top: 0; }
+  .pg-mw-steps { grid-template-columns: 1fr 1fr; }
+  .pg-mw-step { min-height: 160px; }
+  .pg-mw-step:nth-child(3), .pg-mw-step:nth-child(4) { border-top: 1px solid rgba(245,241,230,0.18); }
+  .pg-mw-step:nth-child(3) { border-left: 0; }
+  .pg-mw-step:not(:last-child)::after { display: none; }
+  .pg-mw-trio { grid-template-columns: 1fr; }
+  .pg-mw-card { border-left: 0; border-top: 1px solid rgba(245,241,230,0.14); min-height: 0; }
+  .pg-mw-card:first-child { border-top: 0; }
+  .pg-mw-saga-list { grid-template-columns: 1fr; }
+  .pg-mw-saga-row { grid-template-columns: 60px 1fr 12px; gap: 10px; }
+  .pg-mw-saga-s { grid-column: 1 / -1; padding-left: 70px; }
+}

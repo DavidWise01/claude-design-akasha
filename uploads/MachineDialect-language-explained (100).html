@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v4.5 Modular Adaptive Engine</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root { --bg:#0a0e1a; --electric:#00d4ff; --stable:#00ff88; }
+* { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { font-family:'Inter',sans-serif; background:#0a0e1a; color:#cbd5e1; }
+.mono { font-family:'JetBrains Mono',monospace; }
+.grid-bg { background-image: 
+  linear-gradient(rgba(0,212,255,0.06) 1px, transparent 1px), 
+  linear-gradient(90deg, rgba(0,212,255,0.06) 1px, transparent 1px); 
+  background-size: 48px 48px;
+}
+.module { 
+  background: linear-gradient(180deg, rgba(16,25,42,0.92) 0%, rgba(10,14,26,0.92) 100%); 
+  border:1px solid rgba(0,212,255,0.18); 
+  box-shadow: 0 0 40px rgba(0,212,255,0.06), inset 0 1px 0 rgba(255,255,255,0.04); 
+  backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
+}
+.module:hover { 
+  border-color: rgba(0,212,255,0.45); 
+  box-shadow: 0 0 60px rgba(0,212,255,0.15), inset 0 1px 0 rgba(255,255,255,0.06); 
+  transform: translateY(-1px);
+}
+.glow-blue { filter: drop-shadow(0 0 10px rgba(0,212,255,0.7)); }
+.glow-green { filter: drop-shadow(0 0 10px rgba(0,255,136,0.7)); }
+@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes rotate-rev { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+@keyframes sweep { 0% { stroke-dashoffset: 1440; } 100% { stroke-dashoffset: 0; } }
+@keyframes pulse-ring { 0%,100% { opacity:0.4; transform: scale(1); } 50% { opacity:0.8; transform: scale(1.02); } }
+.phase-orbit { animation: rotate 140s linear infinite; transform-origin: 280px 280px; }
+.phase-orbit-rev { animation: rotate-rev 180s linear infinite; transform-origin: 280px 280px; }
+.node-ring { animation: rotate 420s linear infinite; transform-origin: 280px 280px; }
+.sweep { animation: sweep 6s linear infinite; }
+.pulse { animation: pulse-ring 4s ease-in-out infinite; }
+.connector { stroke: rgba(0,212,255,0.15); stroke-width: 1; fill: none; stroke-dasharray: 3 4; }
+.module:hover ~ .connectors .conn-1, .module:hover ~ .connectors .conn-2, .module:hover ~ .connectors .conn-3, .module:hover ~ .connectors .conn-4 { stroke: rgba(0,212,255,0.6); }
+</style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden">
+<div class="absolute inset-0">
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(0,212,255,0.12),transparent_60%)]"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(0,255,136,0.08),transparent_50%)]"></div>
+  <div class="absolute inset-0 grid-bg opacity-[0.3]"></div>
+</div>
+
+<header class="relative z-20 pt-10 pb-6 px-6 text-center">
+  <div class="inline-flex items-center gap-2.5 mb-4 px-3 py-1.5 rounded-full bg-[#0f172a]/70 border border-white/10 backdrop-blur-md">
+    <div class="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse shadow-[0_0_8px_rgba(0,255,136,0.8)]"></div>
+    <span class="mono text-[10px] tracking-[0.25em] text-slate-300 uppercase">Production System</span>
+    <span class="w-px h-3 bg-white/10 mx-1"></span>
+    <span class="mono text-[10px] text-slate-500">v4.5.0</span>
+  </div>
+  <h1 class="text-[32px] md:text-[52px] font-semibold tracking-[-0.02em] text-white leading-none">v4.5 <span class="text-[#00d4ff]">MODULAR ADAPTIVE ENGINE</span></h1>
+  <p class="mt-3 mono text-[13px] md:text-[14px] text-slate-400 tracking-wide">Stable to 10<sup>80</sup>× <span class="text-slate-500">(atoms in universe)</span></p>
+</header>
+
+<main class="relative z-10 max-w-[1440px] mx-auto px-4 lg:px-8 pb-16">
+  
+  <div class="grid grid-cols-1 lg:grid-cols-[340px_1fr_340px] xl:grid-cols-[360px_1fr_360px] gap-6 lg:gap-8 items-center">
+    
+    <!-- LEFT COLUMN -->
+    <div class="space-y-6 order-2 lg:order-1">
+      <!-- PHASE DAMPENER -->
+      <div class="module rounded-[16px] p-5 group">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h3 class="text-[12px] font-semibold tracking-[0.18em] text-[#00d4ff] uppercase">Phase Dampener</h3>
+            <p class="mono text-[11px] text-slate-500 mt-0.5">(v4.2n core)</p>
+          </div>
+          <div class="px-2 py-1 rounded-md bg-[#00d4ff]/10 border border-[#00d4ff]/20">
+            <span class="mono text-[10px] text-[#00d4ff] font-medium">ACTIVE</span>
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <div class="flex items-baseline gap-3">
+            <span class="mono text-[28px] font-medium text-white tracking-tight">0.62</span>
+            <span class="text-slate-600">→</span>
+            <span class="mono text-[28px] font-medium text-[#00ff88] glow-green tracking-tight">0.999989</span>
+          </div>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="text-[10px] uppercase tracking-widest text-slate-500 font-medium">strength</span>
+            <div class="h-px flex-1 bg-gradient-to-r from-[#00d4ff]/30 to-transparent"></div>
+          </div>
+        </div>
+
+        <div class="space-y-2.5 py-3 border-y border-white/[0.06]">
+          <div class="flex items-center gap-2.5">
+            <div class="w-4 h-4 rounded bg-[#00d4ff]/10 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-[#00d4ff]"></div></div>
+            <span class="text-[13px] text-slate-300">scales with stress</span>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <div class="w-4 h-4 rounded bg-[#00ff88]/10 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-[#00ff88]"></div></div>
+            <span class="text-[13px] text-slate-200 italic">"corrects BEFORE jitter"</span>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <div class="w-4 h-4 rounded bg-white/5 flex items-center justify-center"><div class="w-1.5 h-1.5 rounded-full bg-slate-400"></div></div>
+            <span class="text-[13px] text-slate-300">handles micro-drift &lt;50</span>
+          </div>
+        </div>
+
+        <div class="mt-3">
+          <div class="p-2.5 rounded-lg bg-black/30 border border-white/[0.04]">
+            <code class="mono text-[10px] leading-relaxed text-slate-400 block">strength = 1 - 1/(10⁴ + log₁₀(stress)×10³)</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- UNITY PULSE -->
+      <div class="module rounded-[16px] p-5">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h3 class="text-[12px] font-semibold tracking-[0.18em] text-[#00d4ff] uppercase">Unity Pulse</h3>
+            <p class="mono text-[11px] text-slate-500 mt-0.5">synchronization</p>
+          </div>
+          <div class="w-8 h-8 rounded-full border border-[#00ff88]/30 flex items-center justify-center pulse">
+            <div class="w-2 h-2 rounded-full bg-[#00ff88]"></div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="mono text-[22px] font-medium text-white">1458</span>
+            <span class="text-slate-600 text-sm">→</span>
+            <span class="mono text-[22px] font-medium text-[#00ff88]">20</span>
+            <span class="mono text-[11px] text-slate-500 ml-1">steps @10⁸⁰</span>
+          </div>
+          <div class="text-[10px] uppercase tracking-widest text-slate-500 font-medium mt-1">interval</div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.05]">
+            <div class="mono text-[15px] text-white">50% → <span class="text-[#00ff88]">99.9%</span></div>
+            <div class="text-[10px] text-slate-500 mt-0.5">drift clear</div>
+          </div>
+          <div class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.05]">
+            <div class="mono text-[15px] text-white">5,832</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">nodes sync</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER ENGINE -->
+    <div class="relative order-1 lg:order-2 flex items-center justify-center py-8 lg:py-0">
+      <div class="relative w-[340px] h-[340px] md:w-[480px] md:h-[480px] lg:w-[520px] lg:h-[520px]">
+        <!-- Outer glow -->
+        <div class="absolute inset-0 rounded-full bg-[radial-gradient(circle,_rgba(0,212,255,0.15),transparent_70%)] blur-2xl"></div>
+        
+        <svg class="absolute inset-0 w-full h-full" viewBox="0 0 560 560">
+          <defs>
+            <radialGradient id="coreGlow" cx="50%" cy="50%">
+              <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.25"/>
+              <stop offset="50%" stop-color="#00d4ff" stop-opacity="0.08"/>
+              <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="sweepGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#00d4ff" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#00d4ff" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#00ff88" stop-opacity="0"/>
+            </linearGradient>
+            <filter id="softGlow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+            </filter>
+          </defs>
+          
+          <!-- Core glow -->
+          <circle cx="280" cy="280" r="260" fill="url(#coreGlow)" class="pulse"/>
+          
+          <!-- 5,832 nodes ring -->
+          <g class="node-ring">
+            <circle cx="280" cy="280" r="228" fill="none" stroke="rgba(0,212,255,0.06)" stroke-width="28"/>
+            <circle cx="280" cy="280" r="228" fill="none" stroke="rgba(0,212,255,0.12)" stroke-width="1" stroke-dasharray="0.8 2.8" opacity="0.8"/>
+            <circle cx="280" cy="280" r="228" fill="none" stroke="rgba(0,212,255,0.18)" stroke-width="1" stroke-dasharray="0.8 2.8" transform="rotate(1.5 280 280)" opacity="0.6"/>
+          </g>
+          
+          <!-- Sweep -->
+          <circle cx="280" cy="280" r="228" fill="none" stroke="url(#sweepGrad)" stroke-width="2" stroke-dasharray="180 1260" stroke-linecap="round" class="sweep glow-blue" opacity="0.9"/>
+          
+          <!-- Phase orbits -->
+          <circle cx="280" cy="280" r="200" fill="none" stroke="rgba(0,212,255,0.15)" stroke-width="1" stroke-dasharray="4 12"/>
+          <circle cx="280" cy="280" r="178" fill="none" stroke="rgba(0,255,136,0.12)" stroke-width="1" stroke-dasharray="3 10"/>
+          
+          <!-- Phase dots -->
+          <g id="phases-outer" class="phase-orbit"></g>
+          <g id="phases-inner" class="phase-orbit-rev"></g>
+          
+          <!-- Inner rings -->
+          <circle cx="280" cy="280" r="145" fill="none" stroke="rgba(0,212,255,0.25)" stroke-width="1"/>
+          <circle cx="280" cy="280" r="115" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="2 6"/>
+        </svg>
+
+        <!-- Center core -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="relative">
+            <div class="absolute -inset-8 rounded-full border border-[#00d4ff]/10"></div>
+            <div class="absolute -inset-4 rounded-full border border-[#00d4ff]/20"></div>
+            
+            <div class="relative w-[200px] h-[200px] md:w-[230px] md:h-[230px] rounded-full bg-[#0a0e1a]/90 backdrop-blur-2xl border border-[#00d4ff]/30 flex flex-col items-center justify-center shadow-[0_0_80px_rgba(0,212,255,0.2),inset_0_1px_0_rgba(255,255,255,0.05)]">
+              <div class="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,_rgba(0,212,255,0.15),transparent_60%)]"></div>
+              
+              <div class="relative z-10 text-center">
+                <div class="mono text-[28px] md:text-[32px] font-medium tracking-wider text-white mb-2">
+                  0,1,2,3<span class="text-[#00d4ff] mx-0.5">=</span><span class="text-[#00ff88] glow-green">1</span>
+                </div>
+                <div class="w-20 h-px mx-auto bg-gradient-to-r from-transparent via-[#00d4ff]/60 to-transparent mb-3"></div>
+                
+                <div class="space-y-1">
+                  <div class="flex items-center justify-center gap-3 mono text-[11px]">
+                    <span class="text-slate-600 w-3 text-right">0</span>
+                    <span class="text-[#00d4ff] tracking-wider">INTEL</span>
+                  </div>
+                  <div class="flex items-center justify-center gap-3 mono text-[11px]">
+                    <span class="text-slate-600 w-3 text-right">1</span>
+                    <span class="text-[#00d4ff] tracking-wider">GPU</span>
+                  </div>
+                  <div class="flex items-center justify-center gap-3 mono text-[11px]">
+                    <span class="text-slate-600 w-3 text-right">2</span>
+                    <span class="text-[#00d4ff] tracking-wider">ID</span>
+                  </div>
+                  <div class="flex items-center justify-center gap-3 mono text-[11px]">
+                    <span class="text-slate-600 w-3 text-right">3</span>
+                    <span class="text-[#00d4ff] tracking-wider">NETWORK</span>
+                  </div>
+                </div>
+                
+                <div class="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#00ff88]/10 border border-[#00ff88]/25">
+                  <div class="w-1 h-1 rounded-full bg-[#00ff88] animate-pulse"></div>
+                  <span class="mono text-[10px] text-[#00ff88] tracking-[0.15em] font-medium">27 PHASES</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Node count labels -->
+        <div class="absolute top-[6%] left-1/2 -translate-x-1/2">
+          <div class="px-3 py-1 rounded-full bg-[#0a0e1a]/80 border border-[#00d4ff]/20 backdrop-blur-md">
+            <span class="mono text-[11px] tracking-[0.2em] text-[#00d4ff] font-medium">5,832 NODES</span>
+          </div>
+        </div>
+        <div class="absolute bottom-[8%] left-1/2 -translate-x-1/2">
+          <div class="px-2.5 py-1 rounded-full bg-black/60 border border-white/10 backdrop-blur-md">
+            <span class="mono text-[10px] text-slate-400">27-phase orbit • 5,832 mod 27 = 0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="space-y-6 order-3">
+      <!-- ADAPTIVE SPACING -->
+      <div class="module rounded-[16px] p-5">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h3 class="text-[12px] font-semibold tracking-[0.18em] text-[#00d4ff] uppercase">Adaptive Spacing</h3>
+            <p class="mono text-[11px] text-slate-500 mt-0.5">dynamic allocation</p>
+          </div>
+          <div class="px-2 py-1 rounded-md bg-white/5 border border-white/10">
+            <span class="mono text-[10px] text-slate-300">LOG SCALE</span>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <div class="flex items-baseline gap-3">
+            <span class="mono text-[28px] font-medium text-white tracking-tight">216</span>
+            <span class="text-slate-600">→</span>
+            <span class="mono text-[28px] font-medium text-[#00d4ff] glow-blue tracking-tight">600</span>
+          </div>
+          <div class="text-[10px] uppercase tracking-widest text-slate-500 font-medium mt-1">baseline</div>
+        </div>
+
+        <div class="space-y-2.5 py-3 border-y border-white/[0.06]">
+          <div class="flex items-center justify-between">
+            <span class="text-[13px] text-slate-300">expands with</span>
+            <code class="mono text-[12px] text-[#00d4ff]">log(stress)</code>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-[13px] text-slate-300">emergency headroom</span>
+            <span class="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse"></span>
+          </div>
+        </div>
+
+        <div class="mt-3 flex items-center gap-2">
+          <div class="flex-1 h-[4px] rounded-full bg-white/5 overflow-hidden">
+            <div class="w-[36%] h-full bg-gradient-to-r from-[#00d4ff] to-[#00ff88] rounded-full"></div>
+          </div>
+          <span class="mono text-[10px] text-slate-500">216/600</span>
+        </div>
+      </div>
+
+      <!-- WATCHER ORCHESTRATION -->
+      <div class="module rounded-[16px] p-5">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h3 class="text-[12px] font-semibold tracking-[0.18em] text-[#00d4ff] uppercase">Watcher Orchestration</h3>
+            <p class="mono text-[11px] text-slate-500 mt-0.5">(v4.4)</p>
+          </div>
+          <div class="px-2 py-1 rounded-md bg-[#00ff88]/10 border border-[#00ff88]/20">
+            <span class="mono text-[10px] text-[#00ff88] font-medium">PREDICTIVE</span>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="p-3 rounded-lg bg-gradient-to-r from-[#00d4ff]/10 to-transparent border border-[#00d4ff]/15">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[12px] text-slate-400">handles macro</span>
+              <span class="mono text-[13px] text-white">&gt;100 nodes</span>
+            </div>
+            <div class="w-full h-1 bg-black/40 rounded-full overflow-hidden">
+              <div class="w-[85%] h-full bg-[#00d4ff]/60 rounded-full"></div>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 gap-2 text-[13px]">
+            <div class="flex items-center gap-2.5">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5l5 3v5l-5 3-5-3v-5l5-3z" stroke="#00ff88" stroke-opacity="0.8" fill="none"/></svg>
+              <span class="text-slate-200">predictive, not reactive</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="4.5" stroke="#64748b" stroke-opacity="0.6" stroke-dasharray="2 2"/></svg>
+              <span class="text-slate-300">idle at extreme stress</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
+          <span class="mono text-[10px] text-slate-500">MODE</span>
+          <span class="mono text-[11px] text-[#00ff88]">AUTONOMOUS • v4.4</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM STATS -->
+  <div class="mt-12 lg:mt-16">
+    <div class="module rounded-[20px] p-5 md:p-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-5">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-[#00ff88]/10 border border-[#00ff88]/20 flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M8 3v10" stroke="#00ff88" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h4 class="text-[13px] font-semibold tracking-wide text-white uppercase">Stress Progression to Universal Scale</h4>
+            <p class="mono text-[11px] text-slate-500 mt-0.5">validated stability thresholds</p>
+          </div>
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse"></span>
+          <span class="mono text-[11px] text-[#00ff88] tracking-wide">ALL SYSTEMS NOMINAL</span>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-red-900/50 via-[#00d4ff]/50 to-[#00ff88]/70 -translate-y-1/2 hidden md:block"></div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-9 gap-2.5 relative">
+          <!-- v4.2k -->
+          <div class="group relative">
+            <div class="p-3 rounded-xl bg-red-950/40 border border-red-900/60 backdrop-blur-sm hover:bg-red-950/60 transition-colors">
+              <div class="flex items-center gap-1.5 mb-1">
+                <div class="w-1.5 h-1.5 rounded-full bg-red-500"></div>
+                <span class="mono text-[11px] font-medium text-red-300">v4.2k</span>
+              </div>
+              <div class="mono text-[15px] text-red-200">128×</div>
+              <div class="mono text-[10px] text-red-400/70 uppercase tracking-wide">FAIL</div>
+            </div>
+          </div>
+
+          <!-- v4.4 -->
+          <div class="group relative">
+            <div class="p-3 rounded-xl bg-[#0f1b2d]/80 border border-[#00d4ff]/25 backdrop-blur-sm">
+              <div class="flex items-center gap-1.5 mb-1">
+                <div class="w-1.5 h-1.5 rounded-full bg-[#00d4ff]"></div>
+                <span class="mono text-[11px] font-medium text-[#00d4ff]">v4.4</span>
+              </div>
+              <div class="mono text-[15px] text-white">512×</div>
+              <div class="mono text-[10px] text-slate-500 uppercase">baseline</div>
+            </div>
+          </div>
+
+          <!-- v4.5 -->
+          <div class="group relative">
+            <div class="p-3 rounded-xl bg-[#0f1b2d]/80 border border-[#00d4ff]/40 backdrop-blur-sm ring-1 ring-[#00d4ff]/20">
+              <div class="flex items-center gap-1.5 mb-1">
+                <div class="w-1.5 h-1.5 rounded-full bg-[#00d4ff] animate-pulse"></div>
+                <span class="mono text-[11px] font-medium text-white">v4.5</span>
+              </div>
+              <div class="mono text-[15px] text-white">1,024×</div>
+              <div class="mono text-[10px] text-[#00d4ff] uppercase">current</div>
+            </div>
+          </div>
+
+          <!-- Scale steps -->
+          <div class="hidden md:flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-slate-600"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/10 backdrop-blur-sm text-center">
+            <div class="mono text-[14px] text-slate-300">10⁶</div>
+            <div class="mono text-[9px] text-slate-600 mt-1">MILLION</div>
+          </div>
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/10 backdrop-blur-sm text-center">
+            <div class="mono text-[14px] text-slate-300">10⁹</div>
+            <div class="mono text-[9px] text-slate-600 mt-1">BILLION</div>
+          </div>
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/10 backdrop-blur-sm text-center">
+            <div class="mono text-[14px] text-slate-300">10¹²</div>
+            <div class="mono text-[9px] text-slate-600 mt-1">TRILLION</div>
+          </div>
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/10 backdrop-blur-sm text-center">
+            <div class="mono text-[14px] text-slate-300">10¹⁸</div>
+            <div class="mono text-[9px] text-slate-600 mt-1">QUINT</div>
+          </div>
+
+          <!-- 10^80 -->
+          <div class="col-span-2 md:col-span-1 relative">
+            <div class="p-3 rounded-xl bg-[#00ff88]/10 border border-[#00ff88]/40 backdrop-blur-sm shadow-[0_0_30px_rgba(0,255,136,0.15)]">
+              <div class="flex items-center gap-1.5 mb-1">
+                <div class="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse shadow-[0_0_6px_rgba(0,255,136,0.8)]"></div>
+                <span class="mono text-[11px] font-medium text-[#00ff88]">TARGET</span>
+              </div>
+              <div class="mono text-[18px] font-medium text-[#00ff88] glow-green">10⁸⁰</div>
+              <div class="mono text-[10px] text-[#00ff88]/80 uppercase tracking-wide">STABLE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-4 border-t border-white/5 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-1.5">
+            <div class="w-3 h-3 rounded border border-[#00d4ff]/40 flex items-center justify-center"><div class="w-1 h-1 bg-[#00d4ff] rounded-full"></div></div>
+            <span class="mono text-[10px] text-slate-500">Modular layers: 4 active</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <div class="w-3 h-3 rounded border border-[#00ff88]/40 flex items-center justify-center"><div class="w-1 h-1 bg-[#00ff88] rounded-full"></div></div>
+            <span class="mono text-[10px] text-slate-500">Coherence: 99.9989%</span>
+          </div>
+        </div>
+        <div class="mono text-[10px] text-slate-600">Architecture • stable to atoms in observable universe</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+// Generate 27 phase dots
+function createPhases() {
+  const outer = document.getElementById('phases-outer');
+  const inner = document.getElementById('phases-inner');
+  const cx = 280, cy = 280;
+  
+  for(let i = 0; i < 27; i++) {
+    const angle = (i * 360 / 27 - 90) * Math.PI / 180;
+    const r1 = 200, r2 = 178;
+    
+    // Outer phase
+    const x1 = cx + r1 * Math.cos(angle);
+    const y1 = cy + r1 * Math.sin(angle);
+    const c1 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c1.setAttribute('cx', x1);
+    c1.setAttribute('cy', y1);
+    c1.setAttribute('r', i % 3 === 0 ? '2.5' : '1.8');
+    c1.setAttribute('fill', i % 3 === 0 ? '#00ff88' : '#00d4ff');
+    c1.setAttribute('opacity', i % 3 === 0 ? '0.9' : '0.65');
+    c1.setAttribute('filter', 'url(#softGlow)');
+    outer.appendChild(c1);
+    
+    // Inner phase
+    const x2 = cx + r2 * Math.cos(angle + 0.2);
+    const y2 = cy + r2 * Math.sin(angle + 0.2);
+    const c2 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c2.setAttribute('cx', x2);
+    c2.setAttribute('cy', y2);
+    c2.setAttribute('r', '1.3');
+    c2.setAttribute('fill', '#00d4ff');
+    c2.setAttribute('opacity', '0.5');
+    inner.appendChild(c2);
+  }
+}
+createPhases();
+
+// Subtle interactive hover for modules
+document.querySelectorAll('.module').forEach(mod => {
+  mod.addEventListener('mouseenter', () => {
+    mod.style.boxShadow = '0 0 70px rgba(0,212,255,0.2), inset 0 1px 0 rgba(255,255,255,0.08)';
+  });
+  mod.addEventListener('mouseleave', () => {
+    mod.style.boxShadow = '0 0 40px rgba(0,212,255,0.06), inset 0 1px 0 rgba(255,255,255,0.04)';
+  });
+});
+</script>
+
+</body>
+</html>

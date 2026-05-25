@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  :root {
+    --purple-core:  #6B2E9C;
+    --purple-deep:  #3A1656;
+    --purple-glow:  #B070E0;
+    --noir-1:       #0A0810;
+    --noir-2:       #14101E;
+    --noir-3:       #1F1A2E;
+  }
+
+  html, body { margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(80% 60% at 20% 20%, rgba(107,46,156,0.28), transparent 55%),
+      radial-gradient(60% 50% at 90% 90%, rgba(176,112,224,0.16), transparent 60%),
+      linear-gradient(180deg, var(--noir-1), var(--noir-2) 60%, var(--noir-3));
+  }
+  .card {
+    position: relative;
+    padding: 30px 28px 36px;
+    min-height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  /* film grain over the noir field */
+  .card::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg,  rgba(241,233,214,0.025) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgba(241,233,214,0.02)  0 1px, transparent 1px 3px);
+    pointer-events: none;
+  }
+  /* a soft venetian shadow band */
+  .card::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(115deg, transparent 38%, rgba(0,0,0,0.45) 50%, transparent 62%);
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  /* ============ STAMP ============ */
+  .bstamp {
+    display: inline-block;
+    position: relative;
+    font-family: "Death From Above", var(--font-display);
+    font-weight: 900;
+    font-size: 24px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 6px 14px 5px;
+    line-height: 1;
+    color: var(--purple-glow);
+    background: transparent;
+    border: 3px solid currentColor;
+    filter: url(#bleed-rough);
+    transform: rotate(-1.4deg);
+  }
+  .bstamp + .bstamp { transform: rotate(1.1deg); }
+  .bstamp + .bstamp + .bstamp { transform: rotate(-0.6deg); }
+  .bstamp + .bstamp + .bstamp + .bstamp { transform: rotate(0.8deg); }
+  .bstamp + .bstamp + .bstamp + .bstamp + .bstamp { transform: rotate(-1.2deg); }
+
+  /* the purple core stamp — the headline ink */
+  .bstamp.core {
+    color: var(--bone);
+    background: var(--purple-core);
+    border-color: var(--purple-core);
+    filter: url(#bleed-rough) url(#halo-purple);
+  }
+  .bstamp.dim       { color: rgba(241,233,214,0.55); border-color: rgba(241,233,214,0.5); }
+  .bstamp.ochre     { color: var(--ochre); }
+  .bstamp.dark {
+    color: var(--noir-1);
+    background: var(--bone);
+    border-color: var(--bone);
+    filter: url(#bleed-rough) url(#halo-bone);
+  }
+
+  /* ink-press shadow seeping outward */
+  .bstamp::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    pointer-events: none;
+    background: radial-gradient(120% 70% at 50% 50%, transparent 55%, currentColor 115%);
+    opacity: 0.22;
+    filter: blur(3px);
+    z-index: -1;
+  }
+
+  /* ============ PILL ============ */
+  .bpill {
+    display: inline-block;
+    font-family: "Death From Above", var(--font-display);
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 5px 12px 4px;
+    border-radius: 999px;
+    color: var(--bone);
+    filter: url(#bleed-soft);
+  }
+  .bpill.policy     { background: var(--purple-deep); color: var(--purple-glow); }
+  .bpill.eval       { background: rgba(241,233,214,0.08); color: rgba(241,233,214,0.7); }
+  .bpill.transcript { background: rgba(241,233,214,0.08); color: rgba(241,233,214,0.7); }
+  .bpill.failure    { background: var(--purple-core); color: var(--bone); filter: url(#bleed-soft) url(#halo-purple); }
+
+  .row { display: flex; flex-wrap: wrap; gap: 14px 16px; align-items: center; position: relative; z-index: 2; }
+  .row + .row { margin-top: 22px; }
+
+  /* tiny meta label under each group, for the noir-dossier feel */
+  .rowlbl {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: rgba(241,233,214,0.4);
+    margin: 18px 0 8px;
+    display: flex; align-items: center; gap: 10px;
+    position: relative; z-index: 2;
+  }
+  .rowlbl::after { content: ""; flex: 1; height: 1px; background: rgba(241,233,214,0.15); }
+  .rowlbl:first-child { margin-top: 0; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute;" aria-hidden="true">
+  <!-- Rough stamp: dilate (ink halo) → blur (seepage) → two-pass displacement -->
+  <filter id="bleed-rough" x="-20%" y="-50%" width="140%" height="200%">
+    <feMorphology in="SourceGraphic" operator="dilate" radius="0.4" result="dilated"/>
+    <feGaussianBlur in="dilated" stdDeviation="0.7" result="bled"/>
+    <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="5" result="noise1"/>
+    <feDisplacementMap in="bled" in2="noise1" scale="4" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.35" numOctaves="1" seed="11" result="noise2"/>
+    <feDisplacementMap in="rough" in2="noise2" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="bleed-soft" x="-20%" y="-60%" width="140%" height="220%">
+    <feMorphology in="SourceGraphic" operator="dilate" radius="0.3" result="dilated"/>
+    <feGaussianBlur in="dilated" stdDeviation="0.5" result="bled"/>
+    <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="bled" in2="noise" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="halo-purple" x="-50%" y="-80%" width="200%" height="260%">
+    <feMorphology in="SourceGraphic" operator="dilate" radius="2" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="6" result="b"/>
+    <feColorMatrix in="b" values="0 0 0 0 0.42  0 0 0 0 0.18  0 0 0 0 0.61  0 0 0 0.7 0" result="purpleGlow"/>
+    <feMerge>
+      <feMergeNode in="purpleGlow"/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>
+  <filter id="halo-bone" x="-50%" y="-80%" width="200%" height="260%">
+    <feMorphology in="SourceGraphic" operator="dilate" radius="1.5" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="5" result="b"/>
+    <feColorMatrix in="b" values="0 0 0 0 0.94  0 0 0 0 0.91  0 0 0 0 0.84  0 0 0 0.4 0" result="boneGlow"/>
+    <feMerge>
+      <feMergeNode in="boneGlow"/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>
+</svg>
+
+<div class="card">
+  <div class="rowlbl">§ STAMPS // EDITORIAL STATE</div>
+  <div class="row">
+    <span class="bstamp core">PRIORITY 1</span>
+    <span class="bstamp">REDACTED</span>
+    <span class="bstamp ochre">EMBARGOED</span>
+    <span class="bstamp dim">PUBLISHED</span>
+    <span class="bstamp dark">CLASSIFIED</span>
+  </div>
+
+  <div class="rowlbl">§ TAGS // CATEGORICAL</div>
+  <div class="row">
+    <span class="bpill failure">FAILURE</span>
+    <span class="bpill policy">POLICY</span>
+    <span class="bpill eval">EVAL</span>
+    <span class="bpill transcript">TRANSCRIPT</span>
+  </div>
+</div>
+
+</body>
+</html>

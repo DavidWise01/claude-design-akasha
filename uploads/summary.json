@@ -1,0 +1,29 @@
+{
+  "version": "4.3-tri-register-gravity",
+  "registers": [
+    "Light",
+    "Shadow",
+    "Neutral"
+  ],
+  "seeds": {
+    "Light": "()[-1(!)]()",
+    "Shadow": "-()[-1(!)]()",
+    "Neutral": "0()[-1(!)]()0"
+  },
+  "gravity_model": "Neutral mass 1.25 balances Light/Shadow polarity",
+  "nodes": 5832,
+  "cycles": 5832,
+  "phase_slots": 27,
+  "collisions": 3,
+  "minimum_register_distance": 0,
+  "balance_failures": 78,
+  "root_balance_events": 27,
+  "gravity_resonances": 216,
+  "tri_locks": 3,
+  "max_gravity_force": 1.25,
+  "light_shadow_polarity_sum": 0.0,
+  "neutral_balance_active": true,
+  "proper_gravity_active": true,
+  "tri_register_locked": true,
+  "real_improvement": true
+}

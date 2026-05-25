@@ -1,0 +1,318 @@
+/* =========================================================================
+   AKASHA — colors_and_type.css
+   AI ethics / human-AI rights design system. Contemplative, ceremonial, quiet.
+   Aesthetic descends from the Akasha index (cream + ink + a single dark sigil)
+   and The Purple Book (purple as the signal, Death From Above for impact).
+   ========================================================================= */
+
+/* ---------- Webfonts ---------- */
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap");
+
+@font-face {
+  font-family: "Death From Above";
+  src: url("./fonts/DeathFromAboveDEMO.ttf") format("truetype");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================================================================
+   COLOR TOKENS
+   ========================================================================= */
+:root {
+  /* ---- Paper (the aether, the canvas) ---- */
+  --aether:      #F5F1E6;   /* primary page bg — direct from Akasha */
+  --aether-2:    #EDE7D6;   /* surface 2 */
+  --aether-3:    #E0D7BD;   /* hairline / sunk */
+  --cream:       #FAF6E9;   /* lightest highlight */
+
+  /* ---- Ink (the dark sigil) ---- */
+  --ink:         #0A0A0A;   /* near-black — direct from Akasha */
+  --ink-2:       #141414;   /* body text */
+  --ink-3:       #3A3833;   /* secondary */
+  --smoke:       #6E6A60;   /* tertiary / meta */
+  --smoke-2:     #8F8A7C;   /* placeholder / disabled */
+  --hush:        rgba(10,10,10,0.5); /* atomic dim for mono labels */
+
+  /* ---- Purple (the signal — from The Purple Book) ---- */
+  --purple:        #4A2168;   /* aubergine deep — headline ink */
+  --purple-core:   #6B2E9C;   /* primary fill */
+  --purple-mid:    #8B5BB8;
+  --purple-glow:   #B070E0;   /* highlights, glows */
+  --purple-deep:   #2E1244;   /* surfaces, deep dark */
+  --purple-soft:   rgba(107,46,156,0.10);  /* tint backgrounds */
+  --purple-veil:   rgba(107,46,156,0.22);
+
+  /* ---- Accents (used sparingly) ---- */
+  --ochre:        #B07F1E;   /* warm secondary, ceremonial gold */
+  --moss:         #3E4A28;   /* "verified / signed" green */
+  --alarm:        #9C1F1E;   /* danger ONLY — never decorative */
+
+  /* ---- Semantic foreground ---- */
+  --fg-1:        var(--ink);
+  --fg-2:        var(--ink-2);
+  --fg-3:        var(--ink-3);
+  --fg-muted:    var(--smoke);
+  --fg-faint:    var(--smoke-2);
+  --fg-on-dark:  var(--aether);
+  --fg-accent:   var(--purple);
+
+  /* ---- Semantic backgrounds ---- */
+  --bg-page:     var(--aether);
+  --bg-surface:  var(--cream);
+  --bg-sunk:     var(--aether-2);
+  --bg-inverse:  var(--ink);
+  --bg-dark:     var(--purple-deep);
+  --bg-tint:     var(--purple-soft);
+
+  /* ---- Lines & strokes ---- */
+  --line-1:      var(--ink);
+  --line-2:      var(--aether-3);
+  --line-3:      rgba(10,10,10,0.12);
+  --line-on-dark: rgba(245,241,230,0.18);
+
+  /* ---- Status ---- */
+  --status-danger:  var(--alarm);
+  --status-warn:    var(--ochre);
+  --status-ok:      var(--moss);
+  --status-info:    var(--purple);
+
+  /* ---- Selection ---- */
+  --selection-bg: var(--purple-core);
+  --selection-fg: var(--cream);
+
+  /* ---- Legacy aliases (Bridge Burners era) — kept so existing files keep working ---- */
+  --bone:        var(--aether);
+  --bone-2:      var(--aether-2);
+  --bone-3:      var(--aether-3);
+  --ember:       var(--purple);          /* what was hot red is now signal purple */
+  --ember-deep:  var(--purple-deep);
+  --ember-glow:  var(--purple-glow);
+  --ochre-deep:  var(--ochre);
+  --ochre-soft:  rgba(176,127,30,0.20);
+  --moss-soft:   rgba(62,74,40,0.32);
+  --moss-deep:   #2A3319;
+  --rust:        #B5532A;
+  --pulp:        #8B6B3A;
+  --font-narrow: "Archivo Narrow", "Archivo", system-ui, sans-serif;
+}
+
+/* =========================================================================
+   TYPE TOKENS
+   ========================================================================= */
+:root {
+  --font-display:  "Death From Above", "Archivo", "Archivo Black", system-ui, sans-serif;
+  --font-display-fallback: "Archivo", system-ui, sans-serif;
+  --font-sans:     "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-mono:     "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  --font-system:   -apple-system, BlinkMacSystemFont, "Helvetica Neue", system-ui, sans-serif;
+
+  /* Type scale */
+  --t-mega:    clamp(4rem, 9vw, 8.5rem);
+  --t-hero:    clamp(2.75rem, 5.5vw, 5rem);
+  --t-h1:      2.5rem;
+  --t-h2:      2rem;
+  --t-h3:      1.5rem;
+  --t-h4:      1.25rem;
+  --t-h5:      1.0625rem;
+  --t-body:    1rem;
+  --t-small:   0.875rem;
+  --t-meta:    0.75rem;
+  --t-micro:   0.6875rem;
+
+  --lh-tight:  0.92;
+  --lh-snug:   1.05;
+  --lh-normal: 1.55;
+  --lh-loose:  1.75;
+
+  --tr-tight:  -0.03em;
+  --tr-normal: 0;
+  --tr-wide:   0.06em;
+  --tr-wider:  0.18em;
+  --tr-widest: 0.32em;   /* Akasha-style: very wide mono labels */
+}
+
+/* =========================================================================
+   SPACING / RADII / SHADOWS
+   ========================================================================= */
+:root {
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+  --sp-10: 128px;
+
+  /* Radii — sparingly used. Defaults are sharp. */
+  --r-0: 0px;
+  --r-1: 2px;
+  --r-2: 4px;
+  --r-pill: 999px;
+  --r-orb:  50%;        /* the circle */
+
+  /* Borders */
+  --bw-hair: 1px;
+  --bw-rule: 2px;
+  --bw-bold: 3px;
+  --bw-slab: 6px;
+
+  /* Shadows — Akasha uses soft, deep, atmospheric drops */
+  --shadow-orb:    0 30px 80px rgba(10,10,10,0.10),
+                   0 2px 8px rgba(10,10,10,0.06),
+                   inset 0 1px 1px rgba(255,255,255,0.05);
+  --shadow-soft:   0 1px 0 rgba(10,10,10,0.04), 0 12px 40px -12px rgba(10,10,10,0.10);
+  --shadow-lift:   0 24px 60px -20px rgba(107,46,156,0.30);
+  /* Legacy stamp shadows kept for compatibility but rarely used */
+  --shadow-stamp:  4px 4px 0 var(--ink);
+  --shadow-stamp-purple: 4px 4px 0 var(--purple);
+}
+
+/* =========================================================================
+   BASE / SEMANTIC ELEMENTS
+   ========================================================================= */
+html, body {
+  background: var(--bg-page);
+  color: var(--fg-1);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--selection-bg); color: var(--selection-fg); }
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  color: var(--fg-1);
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: var(--tr-tight);
+  line-height: var(--lh-snug);
+  text-wrap: balance;
+}
+h1 { font-size: var(--t-h1); font-weight: 900; line-height: var(--lh-tight); }
+h2 { font-size: var(--t-h2); font-weight: 800; }
+h3 { font-size: var(--t-h3); font-weight: 700; }
+h4 { font-size: var(--t-h4); font-weight: 700; letter-spacing: -0.01em; }
+h5 { font-size: var(--t-h5); font-weight: 600; letter-spacing: 0; }
+
+p { margin: 0; color: var(--fg-2); line-height: var(--lh-normal); text-wrap: pretty; }
+
+a {
+  color: var(--fg-1);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--purple);
+}
+a:hover { color: var(--purple); }
+
+code, kbd, samp, pre {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+code {
+  background: var(--aether-2);
+  padding: 0.05em 0.35em;
+  border: 1px solid var(--line-2);
+}
+
+hr {
+  border: 0;
+  border-top: var(--bw-hair) solid var(--ink);
+  margin: var(--sp-6) 0;
+}
+
+blockquote {
+  border-left: var(--bw-slab) solid var(--purple);
+  margin: 0;
+  padding: var(--sp-2) var(--sp-5);
+  font-family: var(--font-display);
+  font-size: var(--t-h3);
+  font-weight: 700;
+  letter-spacing: var(--tr-tight);
+  line-height: 1.15;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-sans); font-weight: 500;
+  font-size: 13px; letter-spacing: 0.04em;
+  padding: 11px 20px;
+  border: 1px solid var(--ink);
+  background: var(--cream);
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background 180ms ease-out, color 180ms ease-out,
+              border-color 180ms ease-out, transform 120ms ease-out;
+}
+.btn:hover { background: var(--ink); color: var(--cream); }
+.btn:active { transform: translateY(1px); }
+
+.btn--primary { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.btn--primary:hover { background: var(--purple); border-color: var(--purple); color: var(--cream); }
+
+.btn--purple { background: var(--purple); color: var(--cream); border-color: var(--purple); }
+.btn--purple:hover { background: var(--purple-core); border-color: var(--purple-core); }
+
+.btn--ghost { background: transparent; border-color: transparent; }
+.btn--ghost:hover { background: var(--aether-2); color: var(--ink); border-color: var(--line-3); }
+
+.btn--sm { font-size: 11px; padding: 7px 14px; letter-spacing: 0.08em; }
+
+/* ---------- Utility classes ---------- */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  text-transform: lowercase;
+  letter-spacing: var(--tr-widest);
+  color: var(--fg-3);
+  font-weight: 400;
+}
+.eyebrow--upper { text-transform: uppercase; }
+.stamp {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: var(--tr-widest);
+  padding: 4px 10px;
+  border: 1px solid currentColor;
+  color: var(--purple);
+  background: transparent;
+}
+.rule { border-top: var(--bw-hair) solid var(--ink); }
+.rule-thin { border-top: var(--bw-hair) solid var(--line-3); }
+.mono { font-family: var(--font-mono); }
+.display { font-family: var(--font-display); letter-spacing: var(--tr-tight); }
+
+/* ---------- The Orb ---------- 
+   A primary brand object. Used in lockups, slide title slabs,
+   and as a meditation focal point. */
+.orb {
+  display: inline-block;
+  width: var(--orb-size, 64px);
+  height: var(--orb-size, 64px);
+  border-radius: var(--r-orb);
+  background: var(--ink);
+  box-shadow: var(--shadow-orb);
+  position: relative;
+}
+.orb--purple { background: var(--purple-core); }
+.orb--ringed::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: var(--r-orb);
+  border: 1px solid var(--line-3);
+  pointer-events: none;
+}

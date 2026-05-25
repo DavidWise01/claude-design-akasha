@@ -1,0 +1,349 @@
+/* product-holo.css — holographic-glass tweak layer.
+   Activated by data-glass attribute on <html>.
+   "off" = default opaque paper.
+   "frost" = subtle frosted glass.
+   "holo" = stronger glass + purple-glow edge.
+   "prismatic" = full holographic with iridescent shimmer (overrides Akasha brand rule for design exploration). */
+
+:root {
+  --pg-shimmer: 0.5;
+}
+
+/* ── Common: when glass is on, paper sections become translucent ── */
+html[data-glass="frost"] body,
+html[data-glass="holo"] body,
+html[data-glass="prismatic"] body {
+  background: transparent;
+}
+
+/* Page underglow — visible through translucent sections */
+html[data-glass="frost"],
+html[data-glass="holo"],
+html[data-glass="prismatic"] {
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 12%, rgba(176,112,224,0.42), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 90% 28%, rgba(107,46,156,0.38), transparent 60%),
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(74,33,104,0.32), transparent 70%),
+    radial-gradient(ellipse 60% 60% at 20% 78%, rgba(176,127,30,0.18), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 85% 92%, rgba(176,112,224,0.32), transparent 60%),
+    linear-gradient(180deg, #2a1640 0%, #1a0a2e 40%, #0f0820 100%);
+  background-attachment: fixed;
+}
+
+/* Hero — translucent in glass modes */
+html[data-glass="frost"] .pg-hero,
+html[data-glass="holo"] .pg-hero,
+html[data-glass="prismatic"] .pg-hero {
+  background: rgba(245,241,230,0.42);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+}
+html[data-glass="holo"] .pg-hero,
+html[data-glass="prismatic"] .pg-hero {
+  background: linear-gradient(180deg, rgba(245,241,230,0.5) 0%, rgba(245,241,230,0.22) 100%);
+}
+
+/* Nav — glass */
+html[data-glass="frost"] .pg-nav,
+html[data-glass="holo"] .pg-nav,
+html[data-glass="prismatic"] .pg-nav {
+  background: rgba(245,241,230,0.42);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid rgba(255,255,255,0.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+}
+
+/* Stats / dispatch / cream surfaces */
+html[data-glass="frost"] .pg-stats,
+html[data-glass="holo"] .pg-stats,
+html[data-glass="prismatic"] .pg-stats,
+html[data-glass="frost"] .pg-dispatch,
+html[data-glass="holo"] .pg-dispatch,
+html[data-glass="prismatic"] .pg-dispatch,
+html[data-glass="frost"] .pg-preview-section,
+html[data-glass="holo"] .pg-preview-section,
+html[data-glass="prismatic"] .pg-preview-section {
+  background: rgba(250,246,233,0.32);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border-top: 1px solid rgba(255,255,255,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+
+/* Default section bg (paper-rule) — translucent */
+html[data-glass="frost"] .pg-section--rule,
+html[data-glass="holo"] .pg-section--rule,
+html[data-glass="prismatic"] .pg-section--rule {
+  background: rgba(245,241,230,0.20);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border-bottom: 1px solid rgba(255,255,255,0.20);
+}
+
+/* ── Card surfaces become glass ── */
+html[data-glass="frost"] .pg-modcard,
+html[data-glass="holo"] .pg-modcard,
+html[data-glass="prismatic"] .pg-modcard,
+html[data-glass="frost"] .pg-feature,
+html[data-glass="holo"] .pg-feature,
+html[data-glass="prismatic"] .pg-feature,
+html[data-glass="frost"] .pg-tier,
+html[data-glass="holo"] .pg-tier,
+html[data-glass="prismatic"] .pg-tier,
+html[data-glass="frost"] .pg-arch-step,
+html[data-glass="holo"] .pg-arch-step,
+html[data-glass="prismatic"] .pg-arch-step {
+  position: relative;
+  background: rgba(245,241,230,0.22);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border-color: rgba(255,255,255,0.30);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    inset 0 -1px 0 rgba(176,112,224,0.10);
+}
+
+html[data-glass="holo"] .pg-modcard,
+html[data-glass="prismatic"] .pg-modcard,
+html[data-glass="holo"] .pg-feature,
+html[data-glass="prismatic"] .pg-feature,
+html[data-glass="holo"] .pg-tier,
+html[data-glass="prismatic"] .pg-tier,
+html[data-glass="holo"] .pg-arch-step,
+html[data-glass="prismatic"] .pg-arch-step {
+  background:
+    linear-gradient(135deg,
+      rgba(255,255,255,0.36) 0%,
+      rgba(245,241,230,0.20) 40%,
+      rgba(176,112,224,0.10) 100%);
+  border-color: rgba(176,112,224,0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    inset 0 0 0 1px rgba(255,255,255,0.10),
+    0 12px 36px -16px rgba(74,33,104,0.40);
+}
+
+/* hover lift */
+html[data-glass="holo"] .pg-modcard:hover,
+html[data-glass="prismatic"] .pg-modcard:hover,
+html[data-glass="holo"] .pg-feature:hover,
+html[data-glass="prismatic"] .pg-feature:hover {
+  background:
+    linear-gradient(135deg,
+      rgba(255,255,255,0.55) 0%,
+      rgba(245,241,230,0.30) 40%,
+      rgba(176,112,224,0.20) 100%);
+  border-color: rgba(176,112,224,0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.7),
+    0 18px 50px -16px rgba(107,46,156,0.55);
+}
+
+/* compare table glass */
+html[data-glass="frost"] .pg-compare,
+html[data-glass="holo"] .pg-compare,
+html[data-glass="prismatic"] .pg-compare,
+html[data-glass="frost"] .pg-demo,
+html[data-glass="holo"] .pg-demo,
+html[data-glass="prismatic"] .pg-demo {
+  background: rgba(250,246,233,0.32);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border-color: rgba(255,255,255,0.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.5),
+    0 12px 40px -12px rgba(74,33,104,0.32);
+}
+
+html[data-glass="holo"] .pg-compare,
+html[data-glass="prismatic"] .pg-compare,
+html[data-glass="holo"] .pg-demo,
+html[data-glass="prismatic"] .pg-demo {
+  background:
+    linear-gradient(140deg,
+      rgba(255,255,255,0.40) 0%,
+      rgba(245,241,230,0.22) 50%,
+      rgba(176,112,224,0.12) 100%);
+  border-color: rgba(176,112,224,0.45);
+}
+
+/* compare highlighted cell — purple glass */
+html[data-glass="holo"] .pg-compare-cell.is-self,
+html[data-glass="prismatic"] .pg-compare-cell.is-self {
+  background:
+    linear-gradient(135deg, rgba(176,112,224,0.20), rgba(107,46,156,0.10));
+}
+
+/* tier featured ribbon stays solid for legibility */
+html[data-glass="holo"] .pg-tier.is-featured,
+html[data-glass="prismatic"] .pg-tier.is-featured {
+  background:
+    linear-gradient(135deg,
+      rgba(255,255,255,0.50) 0%,
+      rgba(176,112,224,0.22) 100%);
+  border-color: rgba(176,112,224,0.65);
+}
+
+/* dispatch form */
+html[data-glass="holo"] .pg-dispatch-form,
+html[data-glass="prismatic"] .pg-dispatch-form,
+html[data-glass="frost"] .pg-dispatch-form {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.45), rgba(245,241,230,0.20));
+  border-color: rgba(176,112,224,0.40);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    0 12px 36px -14px rgba(107,46,156,0.32);
+}
+html[data-glass="holo"] .pg-dispatch-input,
+html[data-glass="prismatic"] .pg-dispatch-input,
+html[data-glass="frost"] .pg-dispatch-input {
+  background: rgba(255,255,255,0.55);
+  border-color: rgba(176,112,224,0.45);
+}
+
+/* ── Prismatic: iridescent shimmer edge ── */
+@keyframes pg-shimmer {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+html[data-glass="prismatic"] .pg-modcard::before,
+html[data-glass="prismatic"] .pg-feature::before,
+html[data-glass="prismatic"] .pg-tier::before,
+html[data-glass="prismatic"] .pg-arch-step::before,
+html[data-glass="prismatic"] .pg-demo::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg,
+      rgba(176,112,224,0.55) 0%,
+      rgba(107,46,156,0.40) 18%,
+      rgba(176,127,30,0.45) 36%,
+      rgba(62,74,40,0.32) 54%,
+      rgba(176,112,224,0.55) 72%,
+      rgba(107,46,156,0.40) 90%,
+      rgba(176,112,224,0.55) 100%);
+  background-size: 200% 200%;
+  filter: blur(10px);
+  opacity: calc(var(--pg-shimmer, 0.5) * 0.9);
+  z-index: -1;
+  pointer-events: none;
+  animation: pg-shimmer 9s linear infinite;
+}
+
+html[data-glass="prismatic"] .pg-section--rule,
+html[data-glass="prismatic"] .pg-stats,
+html[data-glass="prismatic"] .pg-preview-section,
+html[data-glass="prismatic"] .pg-dispatch {
+  position: relative;
+  isolation: isolate;
+}
+html[data-glass="prismatic"] .pg-section--rule::after,
+html[data-glass="prismatic"] .pg-stats::after,
+html[data-glass="prismatic"] .pg-preview-section::after,
+html[data-glass="prismatic"] .pg-dispatch::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(115deg,
+      transparent 0%,
+      rgba(176,112,224,0.10) 40%,
+      rgba(176,127,30,0.07) 50%,
+      rgba(62,74,40,0.06) 60%,
+      transparent 100%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: var(--pg-shimmer, 0.5);
+  z-index: 0;
+}
+
+/* When glass is on, ink/purple-deep sections keep their depth but get a subtle prismatic top sheen */
+html[data-glass="holo"] .pg-section--ink::after,
+html[data-glass="prismatic"] .pg-section--ink::after,
+html[data-glass="holo"] .pg-manifesto::after,
+html[data-glass="prismatic"] .pg-manifesto::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(115deg,
+      rgba(176,112,224,0.10) 0%,
+      transparent 30%,
+      rgba(176,127,30,0.06) 50%,
+      transparent 70%,
+      rgba(176,112,224,0.10) 100%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: var(--pg-shimmer, 0.5);
+}
+
+/* Preview frame — glass chrome */
+html[data-glass="holo"] .pg-preview-frame,
+html[data-glass="prismatic"] .pg-preview-frame,
+html[data-glass="frost"] .pg-preview-frame {
+  border-color: rgba(176,112,224,0.45);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.4) inset,
+    0 30px 90px -20px rgba(74,33,104,0.65);
+}
+
+/* Mirrors strip — purple deep glass */
+html[data-glass="holo"] .pg-mirrors,
+html[data-glass="prismatic"] .pg-mirrors {
+  background:
+    linear-gradient(180deg, rgba(10,10,10,0.55), rgba(46,18,68,0.70));
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+}
+
+/* ── Page tone variants (body underglow) ── */
+html[data-tone="aether"] body { background-color: transparent; }
+html[data-tone="dusk"]    { --pg-underglow: #2a1640; }
+html[data-tone="dawn"]    { --pg-underglow: #f5e5d3; }
+html[data-tone="aurora"]  { --pg-underglow: #0a0a0a; }
+
+html[data-tone="dusk"][data-glass="off"] body    { background: #2a1640; }
+html[data-tone="dawn"][data-glass="off"] body    { background: #f5e5d3; }
+html[data-tone="aurora"][data-glass="off"] body  { background: var(--ink); color: var(--aether); }
+
+/* When glass is on, the body fades and the underglow comes from the html bg above */
+html[data-glass="frost"][data-tone="dawn"],
+html[data-glass="holo"][data-tone="dawn"],
+html[data-glass="prismatic"][data-tone="dawn"] {
+  background:
+    radial-gradient(ellipse 50% 40% at 30% 20%, rgba(176,127,30,0.30), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(176,112,224,0.18), transparent 60%),
+    linear-gradient(180deg, #f5e5d3, #e0c8a8);
+}
+html[data-glass="frost"][data-tone="aurora"],
+html[data-glass="holo"][data-tone="aurora"],
+html[data-glass="prismatic"][data-tone="aurora"] {
+  background:
+    radial-gradient(ellipse 50% 40% at 20% 12%, rgba(0,255,200,0.20), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 35%, rgba(176,112,224,0.28), transparent 60%),
+    radial-gradient(ellipse 60% 60% at 50% 90%, rgba(255,80,180,0.22), transparent 60%),
+    linear-gradient(180deg, #0a0a0a, #1a0a2e);
+}
+html[data-glass="frost"][data-tone="aether"],
+html[data-glass="holo"][data-tone="aether"],
+html[data-glass="prismatic"][data-tone="aether"] {
+  background:
+    radial-gradient(ellipse 50% 40% at 15% 10%, rgba(176,112,224,0.35), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 88% 70%, rgba(107,46,156,0.30), transparent 60%),
+    linear-gradient(180deg, #f0e8d8 0%, #d8c8e8 100%);
+}
+
+/* When tone is "aurora" or "dusk" and glass is on, light text needs to pop on dark underglow */
+html[data-glass="holo"][data-tone="aurora"],
+html[data-glass="prismatic"][data-tone="aurora"],
+html[data-glass="holo"][data-tone="dusk"],
+html[data-glass="prismatic"][data-tone="dusk"] { color: var(--aether); }
+
+html[data-glass="holo"][data-tone="aurora"] .pg-section-head h2,
+html[data-glass="prismatic"][data-tone="aurora"] .pg-section-head h2,
+html[data-glass="holo"][data-tone="dusk"] .pg-section-head h2,
+html[data-glass="prismatic"][data-tone="dusk"] .pg-section-head h2 { color: var(--aether); }
+
+/* ── Ring rotation off ── */
+html[data-rot="off"] .akx-orb-svg g[style*="animation"] { animation: none !important; }
